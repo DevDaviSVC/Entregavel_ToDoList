@@ -1,39 +1,89 @@
 // Clase
 
 class ToDo {
-
+  Texto
+  Prioridade
+  Feito = false
+  constructor(texto, prioridade) {
+    this.Texto = texto;
+    this.Prioridade = prioridade;
+  }
 }
 
 // Array
-
+let arrayTodos = []
 
 //funções projeto
 
-function CriarToDo() {
-
+function CriarToDo(texto, prioridade, array) {
+  let objetoToDo = new ToDo(texto, prioridade)
+  if (!array.some(tarefa => tarefa.Texto == objetoToDo.Texto && tarefa.Prioridade == objetoToDo.Prioridade)) {
+    arrayTodos.push(objetoToDo)
+  }
+  return objetoToDo
 }
 
-function AtualizarToDo() {
+function AtualizarToDo(textoAntigo, textoNovo, array) {
+  let tarefaExiste = false
+  arrayTodos.forEach(tarefa => {
+    if (tarefa.Texto == textoAntigo) {
+      tarefa.Texto = textoNovo
+      tarefaExiste = true
+    }
+  })
 
+  return tarefaExiste
 }
 
-function ConcluirToDo() {
-
-}
-
-function ExcluirToDo() {
-
-}
-
-function PesquisarToDo() {
- 
-}
-
-function OrdenarCrescente() {
+function ConcluirToDo(array, texto) {
+  let tarefaFeita = false
+  arrayTodos.forEach(tarefa => {
+    if (tarefa.Texto == texto) {
+      tarefaFeita = true
+      if (tarefa.Feito == false) {
+        tarefa.Feito = true
+      } else {
+        tarefa.Feito = false
+      }
+    }
+  })
   
+  return tarefaFeita
 }
-function OrdenarDecrescente() {
-  
+
+function ExcluirToDo(array, texto) {
+  let tarefaExcluida = false
+  arrayTodos.forEach(tarefa => {
+    if (tarefa.Texto == texto) {
+      let index = arrayTodos.indexOf(tarefa)
+      arrayTodos.splice(index, 1)
+      tarefaExcluida = true
+    }
+  })
+
+  return tarefaExcluida
+}
+
+function PesquisarToDo(array, texto) {
+  let tarefaEncontrada = false
+  array.forEach(tarefa => {
+    if (tarefa.Texto == texto) {
+      tarefaEncontrada = true
+    }
+  })
+
+ return tarefaEncontrada
+}
+
+function OrdenarCrescente(array) {
+  array.sort((a, b) => a.Prioridade - b.Prioridade)
+  return array
+}
+
+function OrdenarDecrescente(array) {
+  array.sort((a, b) => a.Prioridade - b.Prioridade)
+  array.reverse()
+  return array
 }
 
 // Seleção de elementos
